@@ -1,0 +1,31 @@
+- id: grafana-alert
+  include-command-output-in-response: true
+  trigger-rule-mismatch-http-response-code: 400
+  execute-command: /home/webhook/grafana-redis-alert.sh
+  pass-environment-to-command:
+  - source: payload
+    name: ruleName
+    envname: contain
+  - source: payload
+    name: state
+    envname: state    
+
+- id: kubernetes-init
+  include-command-output-in-response: true
+  trigger-rule-mismatch-http-response-code: 400
+  execute-command: /home/webhook/k8s-redis-initContainers.sh
+  response-message: success
+  pass-environment-to-command:
+  - source: url
+    name: contain
+    envname: contain
+
+- id: kubernetes-liveness
+  response-message: success
+  include-command-output-in-response: true
+  trigger-rule-mismatch-http-response-code: 400
+  execute-command: /home/webhook/k8s-redis-livenessProbe.sh
+  pass-environment-to-command:
+  - source: url
+    name: contain
+    envname: contain
