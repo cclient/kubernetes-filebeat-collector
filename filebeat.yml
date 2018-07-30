@@ -1,5 +1,6 @@
 filebeat.inputs:
 - type: log
+  paths:
     - docker_logfile_path
     - docker_mount_logfile_path
   fields:
