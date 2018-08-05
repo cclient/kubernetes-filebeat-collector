@@ -61,7 +61,7 @@ def get_config_file(contain_id):
 
 
 def get_runing_filebeat():
-    cmd = ["/bin/sh", "-c", "pgrep -a  -f filebeat"]
+    cmd = ["/bin/sh", "-c", "pgrep -a  -f filebeat | grep -v filebeat.py"]
     stat=""
     try:
      stat = subprocess.check_output(cmd)

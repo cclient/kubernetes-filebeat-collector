@@ -1,14 +1,20 @@
 $ kb get pods
+
 NAME                                     READY     STATUS    RESTARTS   AGE
+
 consume-577cd986c7-8mk4h                 1/1       Running   0          3d
 
 $ docker ps |grep consume
-caed89381981    cuidapeng/consume@sha256:483cd48b4b1e2ca53846f11fe953695bcceea59542b77f09044d30644cf3235f  "/app/app"  3 days ago  Up 31 hours k8s_consume_consume-577cd986c7-8mk4h_default_00bea8a1-8bfc-11e8-b709-f01fafd51338_0
-fda1d939f5b4    k8s.gcr.io/pause:3.1    "/pause"    3 days ago  Up 3 daysk8s_POD_consume-577cd986c7-8mk4h_default_00bea8a1-8bfc-11e8-b709-f01fafd51338_0
+
+`caed89381981    cuidapeng/consume@sha256:483cd48b4b1e2ca53846f11fe953695bcceea59542b77f09044d30644cf3235f  "/app/app"  3 days ago  Up 31 hours k8s_consume_consume-577cd986c7-8mk4h_default_00bea8a1-8bfc-11e8-b709-f01fafd51338_0`
+
+`fda1d939f5b4    k8s.gcr.io/pause:3.1    "/pause"    3 days ago  Up 3 daysk8s_POD_consume-577cd986c7-8mk4h_default_00bea8a1-8bfc-11e8-b709-f01fafd51338_0`
 
 docker contain id:caed89381981
 
 $ ls -alh /var/lib/docker/containers/caed8938198152778e3715f4bd3c00795f40c812d2cdb87dadfe8b0bb058390f
+
+```res
 total 2.0M
 drwx------  3 root root 4.0K Jul 25 16:10 .
 drwxrw-rw- 54 root root  12K Jul 25 15:36 ..
@@ -16,6 +22,7 @@ drwxrw-rw- 54 root root  12K Jul 25 15:36 ..
 drwx------  2 root root 4.0K Jul 20 17:05 checkpoints
 -rw-r--r--  1 root root 5.9K Jul 25 16:10 config.v2.json
 -rw-r--r--  1 root root 1.9K Jul 25 16:10 hostconfig.json
+```
 
 $ cat /var/lib/docker/containers/caed8938198152778e3715f4bd3c00795f40c812d2cdb87dadfe8b0bb058390f/config.v2.json
 
@@ -246,6 +253,7 @@ $ cat /var/lib/docker/containers/caed8938198152778e3715f4bd3c00795f40c812d2cdb87
 ```
 
 $ ls -alh /var/log/pods/00bea8a1-8bfc-11e8-b709-f01fafd51338/consume/0.log
+
 lrwxrwxrwx 1 root root 165 Jul 20 17:05 /var/log/pods/00bea8a1-8bfc-11e8-b709-f01fafd51338/consume/0.log -> /var/lib/docker/containers/caed8938198152778e3715f4bd3c00795f40c812d2cdb87dadfe8b0bb058390f/caed8938198152778e3715f4bd3c00795f40c812d2cdb87dadfe8b0bb058390f-json.log
 
 (docker local json.log)+(docker local config.v2.json)=(k8s deploy log)
