@@ -1,5 +1,3 @@
-# now can not  work [issues](https://github.com/kubernetes/kubernetes/issues/66699)
-
 ## work condition
 
 ### same value
@@ -133,11 +131,10 @@ spec:
       - name: consume
         imagePullPolicy: Always
         image: cuidapeng/busybox-curl:v0.1
-        command: ['sh', '-c', 'echo The app is running! && sleep 3600']
+        command: ['sh', '-c', 'curl http://alert_hook_server:9000/hooks/kubernetes-init?contain=consume && echo The app is running! && sleep 3600']
         livenessProbe:
            exec:
-             command:
-             - return $(curl -fsSL http://alert_hook_server:9000/hooks/kubernetes-liveness?contain=consume);
+             command: ['sh', '-c', 'return $(curl -fsSL http://alert_hook_server:9000/hooks/kubernetes-liveness?contain=consume)']
            initialDelaySeconds: 5
            periodSeconds: 5
       initContainers:
