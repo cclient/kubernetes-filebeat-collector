@@ -45,15 +45,15 @@ parser.add_argument('-t', '--task',
 parser.add_argument('-p', '--filebeat_home',
                     type=str,
                     required=False,
-                    default='/home/cuidapeng/filebeat',
+                    default='/usr/share/filebeat',
                     help='')
 
 
-containers_path = '/var/lib/docker/containers/'
-default_filebeat_path = './filebeat.yml'
-filebeat_home = '/home/cuidapeng/filebeat'
+containers_path = ''
+default_filebeat_path = ''
+filebeat_home = ''
 log_path_mount = ''
-log_path_mount = '*.log'
+log_path_mount = ''
 
 
 def get_config_file(contain_id):
@@ -61,7 +61,7 @@ def get_config_file(contain_id):
 
 
 def get_runing_filebeat():
-    cmd = ["/bin/sh", "-c", "pgrep -a  -f filebeat | grep -v filebeat.py"]
+    cmd = ["/bin/sh", "-c", "pgrep -a  -f filebeat | grep yml | grep -v filebeat.py"]
     stat=""
     try:
      stat = subprocess.check_output(cmd)
@@ -151,6 +151,9 @@ def _start_filebeat(contain_infos, runing_filebeats):
             
             cmd = ["/bin/sh", "-c", "sed -i 's:docker_logfile_path:" +
                    contain_info["log_path"] + ":' " + target_filebeat_path]
+            stat = subprocess.check_output(cmd)
+
+            cmd = ["/bin/sh", "-c", "sed -i 's:id:" +contain_info["id"] + ":' " + target_filebeat_path]
             stat = subprocess.check_output(cmd)
 
             if "mount_log_path" in contain_info:

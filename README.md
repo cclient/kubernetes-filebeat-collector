@@ -12,11 +12,19 @@ see why&how
 
 --
 
-### start
+### k8s start
+
+#### docker build(modify filebeat.yml "localhost:9200" to your es)
+
+docker build -t filebeat_k8s:v0.1 ./
+
+kubectl apply -f deploy-filebeat.yml
+
+### local start
 
 python filebeat.py -l /etc/hosts -m *.log -t start
 
-### stop
+### local stop
 
 python filebeat.py -t stop
 

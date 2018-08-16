@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: filebeat
+  namespace: kube-system
+  labels:
+    app: filebeat
+spec:
+  template:
+    metadata:
+      labels:
+        app: filebeat
+    spec:
+      securityContext:
+        runAsUser: 0
+        fsGroup: 0
+      containers:
+      - name: filebeat
+        image: filebeat_k8s:6.3.0
+        command: ['./filebeat.sh']
+        volumeMounts:
+        - mountPath: /var/lib/docker/containers
+          name: docker-contains
+          readOnly: true
+      volumes:
+       - hostPath:
+           path: /var/lib/docker/containers
+         name: docker-contains
