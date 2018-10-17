@@ -16,7 +16,7 @@ see why&how
 
 #### docker build(modify filebeat.yml "localhost:9200" to your es)
 
-docker build -t filebeat_k8s:v0.1 ./
+docker build -t cuidapeng/filebeat-k8s-collector:6.3.0 ./
 
 kubectl apply -f deploy-filebeat.yml
 
@@ -171,5 +171,3 @@ spec:
 ```
 
 spec.spec.containers.name=io_kubernetes_container_name
-
-set `python filebeat.py -l /etc/hosts -m *.log -t start` as cron job

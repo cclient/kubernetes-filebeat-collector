@@ -16,7 +16,7 @@ spec:
         fsGroup: 0
       containers:
       - name: filebeat
-        image: filebeat_k8s:6.3.0
+        image: cuidapeng/filebeat-k8s-collector:6.3.0
         command: ['./filebeat.sh']
         volumeMounts:
         - mountPath: /var/lib/docker/containers
